@@ -72,9 +72,8 @@ const yargs = require("yargs")
 
 const argv = yargs.argv;
 
-const targetDir = path.join(process.cwd(), 'prebuilds')
-const sourceDir = path.join(process.cwd(), argv.baseDir)
-const sourceFile = path.join(sourceDir, argv.source)
+const targetDir = path.join(argv.baseDir, 'prebuilds')
+const sourceFile = path.join(argv.baseDir, argv.source)
 
 if (!fs.existsSync(sourceFile)) {
     console.error(`Built binary does not exist!`)
@@ -118,7 +117,7 @@ if (argv.extraFiles) {
     const extraFiles = Array.isArray(argv.extraFiles) ? argv.extraFiles : [argv.extraFiles]
     
     for (const file of extraFiles) {
-        fs.copyFileSync(path.join(sourceDir, file), path.join(destDir, file))
+        fs.copyFileSync(path.join(argv.baseDir, file), path.join(destDir, file))
     }
 }
 
